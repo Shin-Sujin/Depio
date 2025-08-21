@@ -1,0 +1,575 @@
+/* ===== Layout Helpers ===== */
+.container {
+  max-width: 900px; /* 전체 최대 폭을 1260px로 제한 */
+  margin-inline: auto; /* 가운데 정렬 */
+  padding-inline: clamp(16px, 4vw, 32px); /* 양 옆 여백 */
+}
+
+/* ===== Base ===== */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR",
+    Helvetica, Arial, sans-serif, "Apple SD Gothic Neo";
+}
+
+/* ===== Brand (Top) ===== */
+.brand {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  pointer-events: none; /* 클릭 방해 X */
+}
+.brand__inner {
+  display: grid;
+  place-items: center;
+  padding-top: clamp(14px, 2.2vw, 32px);
+}
+.brand__logo {
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  font-size: clamp(22px, 3.2vw, 44px);
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Hero ===== */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+
+  /* 불필요한 위 패딩 제거 → 배경이 최상단에 붙음 */
+  padding-top: 0;
+  padding-bottom: clamp(40px, 8vh, 120px);
+
+  background: none;
+}
+
+.hero__inner {
+  max-width: 900px;
+  margin-inline: auto;
+  position: relative;
+
+  /* hero 안에서 이미지 배경 */
+  background-image: var(--hero-bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* 원하는 비율만큼 세로 길이 확보 */
+  min-height: 80vh; /* 필요 시 60vh~80vh로 조정 */
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(80px, 12vh, 140px) clamp(32px, 5vw, 64px)
+    clamp(32px, 5vw, 64px);
+}
+
+/* 좌측 상단 타이포 */
+/* 좌측 상단 텍스트 */
+.hero__text {
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  transform: translateY(12px);
+  opacity: 0;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.hero.is-visible .hero__text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__eyebrow {
+  margin: 0 0 10px;
+  font-size: clamp(16px, 2.4vw, 24px);
+  font-weight: 600;
+  opacity: 0.9;
+}
+.hero__title {
+  margin: 0;
+  line-height: 1.12;
+  font-size: clamp(28px, 6vw, 54px);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.accent {
+  font-weight: 900;
+  white-space: nowrap;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.35));
+}
+
+/* 우하단 키커 */
+
+/* 텍스트 위로 올리기 */
+.hero__text,
+.hero__kicker {
+  position: relative;
+  z-index: 1;
+}
+
+/* kicker를 하단에 딱 붙이기 */
+.hero__kicker {
+  margin-top: auto; /* flex column에서 맨 아래로 */
+  align-self: flex-end; /* 오른쪽 정렬 */
+  text-align: right;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+
+  transform: translateY(0); /* 초기 애니메이션 제거 가능 */
+}
+.hero.is-visible .hero__kicker {
+  opacity: 1;
+  transform: translateY(0);
+}
+.kicker__small {
+  font-size: clamp(20px, 3vw, 28px);
+  opacity: 0.9;
+  font-weight: 400;
+  margin-bottom: clamp(6px, 1vw, 16px);
+}
+.kicker__main {
+  font-weight: 600;
+  font-size: clamp(20px, 3vw, 28px);
+  letter-spacing: 0.01em;
+}
+
+/* 반응형 여백 보정(좁은 화면에서 좌측 상단 배치 유지) */
+@media (min-width: 1024px) {
+  .hero {
+    padding-left: clamp(48px, 8vw, 96px);
+    padding-right: clamp(32px, 6vw, 80px);
+  }
+}
+
+/* ===== Problems Section ===== */
+/* ===== Problems Section ===== */
+.problems {
+  background: #fff;
+  color: #111;
+  padding-block: clamp(56px, 9vw, 120px);
+}
+
+.problems__title {
+  margin: 0 0 clamp(20px, 4vw, 36px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-size: clamp(26px, 5.6vw, 44px);
+}
+.problems__title-sub {
+  display: inline-block;
+  margin-bottom: clamp(10px, 1vw, 16px);
+  font-weight: 800;
+  font-size: clamp(22px, 5vw, 40px);
+  opacity: 0.95;
+  letter-spacing: 0.02em;
+}
+
+/* 카드 리스트 (회색 박스) */
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: clamp(12px, 3.5vw, 26px);
+}
+
+/* 단일 카드 */
+.news-card {
+  background: #f3f5f8; /* 회색 박스 */
+  padding: clamp(14px, 2.6vw, 18px) clamp(16px, 3vw, 22px);
+}
+
+/* 상단 메타: 이름 / 날짜 */
+.news-card__meta {
+  display: block;
+  color: #6b7280;
+  font-size: clamp(12px, 1.8vw, 13px);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* 본문 텍스트 (파란 헤드라인 느낌) */
+.news-card__text {
+  margin: 0;
+  color: #1a56b3; /* 파란색 */
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-size: clamp(16px, 3.2vw, 20px);
+  line-height: 1.5;
+}
+
+/* 중간 굵게 강조 */
+.news-card__text b,
+.news-card__text strong,
+.news-card__text .hl {
+  font-weight: 900;
+}
+
+/* ===== Statement Section ===== */
+.statement {
+  background: #fff;
+  color: #111;
+  text-align: center;
+  padding-block: clamp(72px, 12vw, 160px);
+}
+
+.statement__inner {
+  max-width: 920px; /* 본문 폭을 약간 좁혀 가독성 강화 */
+  margin-inline: auto;
+}
+
+.statement__icon {
+  width: clamp(72px, 8vw, 120px);
+  height: auto;
+  display: inline-block;
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+}
+
+.statement__eyebrow {
+  margin: 0 0 clamp(10px, 1.6vw, 16px);
+  font-weight: 800;
+  font-size: clamp(16px, 3.4vw, 36px);
+  letter-spacing: -0.01em;
+}
+
+.statement__title {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  font-size: clamp(22px, 5vw, 44px);
+}
+/* ===== Limitations Section ===== */
+.limitations {
+  background: #fff;
+  color: #111;
+  text-align: center;
+  padding-block: clamp(72px, 12vw, 160px);
+}
+
+.limitations__inner {
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.limitations__title-top {
+  margin: 0 0 clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  font-size: clamp(22px, 4.5vw, 40px);
+  letter-spacing: -0.02em;
+}
+
+.limitations__images {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 6vw, 64px);
+  margin-bottom: clamp(40px, 8vw, 72px);
+}
+.limitations__images img {
+  width: clamp(100px, 24vw, 180px);
+  height: auto;
+  object-fit: contain;
+}
+
+.limitations__title-bottom {
+  margin: 0 0 clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  font-size: clamp(20px, 4.5vw, 36px);
+  letter-spacing: -0.01em;
+}
+
+.limitations__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 400;
+  justify-items: center; /* ← 왼쪽 대신 가운데 정렬 */
+  text-align: center; /* 텍스트도 가운데 */
+}
+.limitations__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center; /* 아이콘+텍스트 묶음도 중앙 배치 */
+}
+
+.limitations__list .icon {
+  width: clamp(18px, 3vw, 28px);
+  height: auto;
+  flex-shrink: 0;
+}
+/* Limitations Section - Conclusion */
+.limitations__conclusion {
+  margin: clamp(60px, 12vw, 120px) 0 clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  font-size: clamp(20px, 4.5vw, 36px);
+  letter-spacing: -0.01em;
+}
+/* ===== Ask (centered title on white) ===== */
+.ask {
+  background: #fff;
+  color: #111;
+  padding-block: clamp(40px, 8vw, 80px);
+}
+.ask__inner {
+  text-align: center;
+}
+.ask__title {
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-size: clamp(28px, 8vw, 44px);
+  font-weight: 500;
+}
+.ask__eyebrow {
+  display: inline-block;
+  margin-bottom: clamp(6px, 1vw, 10px);
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* ===== Rethink (image card with bottom-left caption) ===== */
+.rethink {
+  background: #fff;
+  padding-block: clamp(24px, 5vw, 56px);
+}
+.rethink__card {
+  position: relative;
+  overflow: hidden;
+
+  /* 이미지: 컨테이너(900px) 안에서만 보이도록 */
+  background-image: var(--bg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* 세로 높이 (필요하면 수치만 조절) */
+  min-height: clamp(260px, 52vh, 520px);
+}
+
+/* 어둡기 오버레이 */
+.rethink__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+/* 좌하단 텍스트 */
+.rethink__text {
+  position: absolute;
+  left: clamp(16px, 4vw, 28px);
+  bottom: clamp(16px, 4vw, 28px);
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  max-width: min(90%, 560px);
+}
+.rethink__headline {
+  margin: 0 0 6px 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-size: clamp(22px, 5.6vw, 40px);
+}
+.rethink__kicker {
+  margin: 0;
+  font-size: clamp(13px, 2.4vw, 16px);
+  font-weight: 700;
+  opacity: 0.95;
+}
+
+/* 모바일에서 줄바꿈 보이기 */
+.m-only {
+  display: inline;
+}
+@media (min-width: 768px) {
+  .m-only {
+    display: none;
+  }
+}
+/* ===== Breakthrough (text + shape compare) ===== */
+.breakthrough {
+  background: #fff;
+  color: #111;
+  text-align: center;
+  padding-block: clamp(56px, 9vw, 120px);
+}
+
+.breakthrough__inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.breakthrough__lead {
+  margin-bottom: clamp(16px, 3.6vw, 28px);
+  color: #6b7280; /* 회색 톤 */
+  font-weight: 700;
+  line-height: 1.6;
+  font-size: clamp(14px, 2.4vw, 18px);
+}
+.breakthrough__lead strong {
+  color: #333;
+  font-weight: 800;
+}
+.breakthrough__lead .hl {
+  font-weight: 900;
+}
+
+.breakthrough__quote {
+  margin: clamp(12px, 2vw, 16px) 0 6px;
+  font-weight: 900;
+  font-size: clamp(20px, 4.8vw, 28px);
+  letter-spacing: -0.01em;
+}
+.breakthrough__headline {
+  margin: 0 0 clamp(24px, 5vw, 40px);
+  font-weight: 900;
+  font-size: clamp(22px, 5.6vw, 30px);
+  letter-spacing: -0.01em;
+}
+
+/* 비교 도형 */
+.spread-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 6vw, 56px);
+  align-items: end;
+  justify-items: center;
+  margin-top: clamp(10px, 3vw, 20px);
+  min-height: clamp(180px, 34vh, 320px); /* 섹션 시각적 깊이 */
+}
+
+.compare__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.beam {
+  width: clamp(44px, 10vw, 70px);
+  height: clamp(120px, 26vh, 220px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #e8b5ae 25%,
+    #c16a61 75%,
+    #9b3e3a 100%
+  );
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.08));
+}
+
+/* 기존: 직진(폭 좁음) */
+.beam--narrow {
+  /* 그대로 직사각형 느낌 */
+}
+
+/* 더블히트: 위로 넓게 퍼지는 형태 (윗부분 넓음, 아래 좁음) */
+.beam--wide {
+  width: clamp(160px, 32vw, 260px);
+  height: clamp(160px, 32vh, 260px);
+  /* 윗면 전체 → 아래 좁아지도록 트래피조이드 */
+  clip-path: polygon(0% 0%, 100% 0%, 78% 100%, 22% 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #e8b5ae 25%,
+    #c16a61 75%,
+    #9b3e3a 100%
+  );
+  border-radius: 10px;
+}
+
+/* 라벨 */
+.compare__label {
+  margin-top: 10px;
+  font-size: clamp(12px, 2.2vw, 14px);
+  color: #444;
+}
+/* ===== Circulation (image banner + title) ===== */
+.circulation {
+  background: #fff;
+  color: #111;
+  padding-block: clamp(40px, 7vw, 80px);
+  text-align: center;
+}
+
+/* 와이드 배너: 컨테이너(900px) 안에서만 보임 */
+.img-banner {
+  margin: 0;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.06);
+}
+
+/* 이미지가 짤리지 않게, 배너 비율 유지 */
+.img-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 16 / 6; /* 필요 시 16/7, 21/9 등으로 조정 */
+}
+
+/* 아래 헤드라인 */
+.circulation__title {
+  margin: clamp(16px, 3vw, 24px) 0 0;
+  font-weight: 900;
+  font-size: clamp(18px, 3.6vw, 26px);
+  letter-spacing: -0.01em;
+}
+/* ===== Carbon Heater Section ===== */
+.carbon-heater {
+  background: #fff;
+  color: #111;
+  padding-block: clamp(50px, 8vw, 90px);
+  text-align: center;
+}
+
+.carbon-heater__subtitle {
+  font-weight: 700;
+  font-size: clamp(18px, 3.5vw, 22px);
+  margin-bottom: clamp(20px, 4vw, 30px);
+}
+
+.carbon-heater__img {
+  margin: 0 auto clamp(20px, 4vw, 40px);
+  max-width: 820px;
+}
+.carbon-heater__img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.carbon-heater__desc {
+  font-size: clamp(15px, 3vw, 18px);
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.carbon-heater__title {
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 900;
+  margin-bottom: clamp(14px, 3vw, 22px);
+}
+
+.carbon-heater__text {
+  font-size: clamp(14px, 2.8vw, 16px);
+  line-height: 1.6;
+  color: #444;
+}
